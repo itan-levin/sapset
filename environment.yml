@@ -1,4 +1,4 @@
-name: sap3d
+name: sapset
 channels:
   - conda-forge
   - nodefaults

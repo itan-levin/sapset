@@ -6,7 +6,7 @@
 
 Objects are named by their Edit3D-Bench id (`<dataset>/<object>`) or by their folder in the repository
 (`idxNN_<object>`). Writes OUT/<folder>/{adapter_config.json, adapter_model.safetensors} and OUT/manifest.json,
-which lists every adapter present in OUT and is what `sap3d-edit --adapters OUT` and `sap3d-bench` read.
+which lists every adapter present in OUT and is what `sapset-edit --adapters OUT` and `sapset-bench` read.
 """
 
 import argparse
@@ -15,7 +15,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-REPO_ID = "Itan-levin/sap3d-adapters"
+REPO_ID = "Itan-levin/sapset-adapters"
 FILES = ("adapter_config.json", "adapter_model.safetensors")
 
 

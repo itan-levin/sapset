@@ -13,11 +13,11 @@ import cv2
 import numpy as np
 import torch
 
-from sap3d import config
-from sap3d.personalize import cli, select
-from sap3d.personalize import validate as validation
-from sap3d.personalize.data import SampleStream
-from sap3d.personalize.train import make_optimizer
+from sapset import config
+from sapset.personalize import cli, select
+from sapset.personalize import validate as validation
+from sapset.personalize.data import SampleStream
+from sapset.personalize.train import make_optimizer
 
 CONFIGS = Path(__file__).resolve().parent.parent / "configs"
 

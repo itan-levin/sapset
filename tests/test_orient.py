@@ -3,8 +3,8 @@
 import numpy as np
 import trimesh
 
-from sap3d import distance, frames, orient
-from sap3d.region import from_primitives, place_components, points_inside
+from sapset import distance, frames, orient
+from sapset.region import from_primitives, place_components, points_inside
 
 POINTS = 20_000
 

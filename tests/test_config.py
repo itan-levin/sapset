@@ -3,7 +3,7 @@
 import tempfile
 from pathlib import Path
 
-from sap3d import config
+from sapset import config
 
 CONFIGS = Path(__file__).resolve().parent.parent / "configs"
 

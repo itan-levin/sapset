@@ -30,7 +30,7 @@ def asset_files(asset_dir) -> tuple:
     views = [source / "render" / f"render_{view:04d}.png" for view in range(BENCHMARK_VIEWS)]
     missing = [str(path) for path in [glb, *views] if not path.is_file()]
     if missing:
-        raise FileNotFoundError(f"the asset folder lacks {missing}; make one with `sap3d-personalize prepare`")
+        raise FileNotFoundError(f"the asset folder lacks {missing}; make one with `sapset-personalize prepare`")
     return glb, views
 
 

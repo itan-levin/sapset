@@ -1,8 +1,8 @@
-"""sap3d-edit rejects inconsistent flags before loading any model or mesh."""
+"""sapset-edit rejects inconsistent flags before loading any model or mesh."""
 
-from sap3d.edit import cli
+from sapset.edit import cli
 
-MISSING = "/nonexistent/sap3d"
+MISSING = "/nonexistent/sapset"
 
 
 def _exits(argv) -> bool:

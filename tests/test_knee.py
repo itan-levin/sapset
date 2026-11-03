@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from sap3d.edit.knee import bend_indices, knee_region
+from sapset.edit.knee import bend_indices, knee_region
 
 WIDTH, SENSITIVITY = 51, 1.0
 

@@ -5,7 +5,7 @@ import torch.nn as nn
 
 from hy3dshape.models.per_sample_lora import (LoRAScaleContext, LoRASampleIndexContext, LoRATokenIndexContext,
                                               PerSampleLoRALinear)
-from sap3d.edit.sampler import build_latent_mask, step_regime
+from sapset.edit.sampler import build_latent_mask, step_regime
 
 
 def _layer(seed=0):

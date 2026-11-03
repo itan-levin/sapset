@@ -1,4 +1,4 @@
-# Personalize-stage settings with their default values (sap3d-personalize --dump-config prints the resolved ones).
+# Personalize-stage settings with their default values (sapset-personalize --dump-config prints the resolved ones).
 dataset:
   random_views: 250          # random renders added to the 16 benchmark-style views
   render_size: 512           # pixels per side of each random render

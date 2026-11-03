@@ -40,7 +40,7 @@ def _adapter_repo(root: Path) -> list:
 
 def test_adapter_download_writes_a_matching_manifest():
     script = _script("download_adapters")
-    assert script.REPO_ID == "Itan-levin/sap3d-adapters"
+    assert script.REPO_ID == "Itan-levin/sapset-adapters"
     with tempfile.TemporaryDirectory() as folder:
         repo, out = Path(folder) / "repo", Path(folder) / "out"
         manifest = _adapter_repo(repo)
@@ -63,7 +63,7 @@ def test_adapter_download_writes_a_matching_manifest():
 
 def test_global_cases_assemble():
     script = _script("download_global_cases")
-    assert script.REPO_ID == "Itan-levin/sap3d-global-edits"
+    assert script.REPO_ID == "Itan-levin/sapset-global-edits"
     with tempfile.TemporaryDirectory() as folder:
         root = Path(folder)
         bench, dataset, out = root / "bench", root / "dataset", root / "out"

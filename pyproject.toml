@@ -3,7 +3,7 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sap3d"
+name = "sapset"
 version = "0.1.0"
 description = "Localized 3D editing with personalized adapters on Hunyuan3D-2.1"
 readme = "README.md"
@@ -14,12 +14,12 @@ authors = [{ name = "Itan Levin" }]
 dependencies = []
 
 [project.scripts]
-sap3d-edit = "sap3d.edit.cli:main"
-sap3d-texture = "sap3d.texture.cli:main"
-sap3d-eval = "sap3d.eval.cli:main"
-sap3d-bench = "sap3d.eval.bench:main"
-sap3d-personalize = "sap3d.personalize.cli:main"
+sapset-edit = "sapset.edit.cli:main"
+sapset-texture = "sapset.texture.cli:main"
+sapset-eval = "sapset.eval.cli:main"
+sapset-bench = "sapset.eval.bench:main"
+sapset-personalize = "sapset.personalize.cli:main"
 
 [tool.setuptools.packages.find]
 where = [".", "third_party/hy3dshape"]
-include = ["sap3d*", "hy3dshape*"]
+include = ["sapset*", "hy3dshape*"]

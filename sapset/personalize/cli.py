@@ -1,9 +1,9 @@
-"""sap3d-personalize: fit a per-object adapter for the edit stage.
+"""sapset-personalize: fit a per-object adapter for the edit stage.
 
-    sap3d-personalize prepare --source asset.glb --out ASSET        any glTF/GLB asset -> benchmark layout
-    sap3d-personalize dataset --asset ASSET --out DATA               views, renders and surface points
-    sap3d-personalize train   --data DATA --out RUN                   adapter in RUN/adapter
-    sap3d-personalize select  --run RUN [--selection-metric legacy]   choose again from RUN/training.json
+    sapset-personalize prepare --source asset.glb --out ASSET        any glTF/GLB asset -> benchmark layout
+    sapset-personalize dataset --asset ASSET --out DATA               views, renders and surface points
+    sapset-personalize train   --data DATA --out RUN                   adapter in RUN/adapter
+    sapset-personalize select  --run RUN [--selection-metric legacy]   choose again from RUN/training.json
 
 An Edit3D-Bench object folder (e.g. Edit3D-Bench/data/GSO/SORTING_BUS) is already an ASSET folder.
 `dataset` and `train` take `--config`, a YAML file overriding the defaults listed in configs/personalize.yaml,
@@ -20,7 +20,7 @@ from .. import config as config_module
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="sap3d-personalize", description=__doc__,
+    parser = argparse.ArgumentParser(prog="sapset-personalize", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     settings = argparse.ArgumentParser(add_help=False)
     settings.add_argument("--config", type=Path, help="YAML overriding the default settings")

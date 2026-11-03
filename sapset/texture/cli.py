@@ -1,10 +1,10 @@
-"""sap3d-texture: texture an edited mesh.
+"""sapset-texture: texture an edited mesh.
 
 Benchmark case (source, edited view, region, mask and camera read from the case folder):
-    sap3d-texture --bench-root DATA --case GSO/SORTING_BUS/prompt_2 --mesh EDIT/edit.glb --out OUT
+    sapset-texture --bench-root DATA --case GSO/SORTING_BUS/prompt_2 --mesh EDIT/edit.glb --out OUT
 
 Any asset:
-    sap3d-texture --mesh edit.glb --source model.glb --edited-view edit.png --region region.yaml \\
+    sapset-texture --mesh edit.glb --source model.glb --edited-view edit.png --region region.yaml \\
                   --camera-meta meta.json --view 0 [--mask mask.png] --out OUT
   The camera (--camera-meta/--view, --camera or --orbit) is the edited view's; the color fit renders
   through it, and the 2D mask is projected from the region when --mask is not given.
@@ -34,14 +34,14 @@ ASSET_FLAGS = ("source", "edited_view", "region", "mask", "camera_meta", "view",
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="sap3d-texture", description=__doc__,
+    parser = argparse.ArgumentParser(prog="sapset-texture", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--mesh", type=Path, help="edited mesh (GLB, the source asset's frame)")
     parser.add_argument("--out", type=Path, help="output folder")
     parser.add_argument("--mode", choices=("composite", "generated"), default="composite")
     parser.add_argument("--config", type=Path, help="YAML overriding the default texture settings")
     parser.add_argument("--model", default="tencent/Hunyuan3D-2.1", help="paint model repository")
-    parser.add_argument("--jobs", type=Path, help="run the texture jobs listed in this JSON file (as sap3d-bench "
+    parser.add_argument("--jobs", type=Path, help="run the texture jobs listed in this JSON file (as sapset-bench "
                                                   "writes them) instead of one job from the flags")
     case = parser.add_argument_group("benchmark case")
     case.add_argument("--bench-root", type=Path, help="Edit3D-Bench data folder")

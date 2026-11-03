@@ -1,7 +1,7 @@
-"""sap3d-bench: edit, texture and evaluate a list of Edit3D-Bench cases, resumably.
+"""sapset-bench: edit, texture and evaluate a list of Edit3D-Bench cases, resumably.
 
-    sap3d-bench --bench-root DATA --adapters ADAPTERS --out OUT --cases cases.txt
-    sap3d-bench --bench-root DATA --adapters ADAPTERS --out OUT --case GSO/SORTING_BUS/prompt_2 ...
+    sapset-bench --bench-root DATA --adapters ADAPTERS --out OUT --cases cases.txt
+    sapset-bench --bench-root DATA --adapters ADAPTERS --out OUT --case GSO/SORTING_BUS/prompt_2 ...
 
 One invocation covers one benchmark root and one edit configuration. Local edits are textured in composite
 mode with the color fit and scored with preservation outside the region, edit fidelity and the benchmark's
@@ -176,7 +176,7 @@ def run_textures(cases, out, tcfg, texture_config, global_edit, model, overwrite
     command = ["--jobs", str(jobs_path.resolve()), "--model", model]
     if texture_config is not None:
         command += ["--config", str(Path(texture_config).resolve())]
-    _run_child("sap3d.texture.cli", command)
+    _run_child("sapset.texture.cli", command)
 
 
 def run_evals(cases, out, bench_root, fidelity_device, overwrite) -> None:
@@ -202,7 +202,7 @@ def run_evals(cases, out, bench_root, fidelity_device, overwrite) -> None:
     jobs_path = out / "work" / "eval_jobs.json"
     jobs_path.parent.mkdir(parents=True, exist_ok=True)
     jobs_path.write_text(json.dumps(pending, indent=1), encoding="utf-8")
-    _run_child("sap3d.eval.cli", ["--jobs", str(jobs_path.resolve())])
+    _run_child("sapset.eval.cli", ["--jobs", str(jobs_path.resolve())])
 
 
 def _run_child(module: str, arguments: list) -> None:
@@ -304,7 +304,7 @@ def write_summary(out: Path) -> dict:
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog="sap3d-bench", description=__doc__,
+    parser = argparse.ArgumentParser(prog="sapset-bench", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--bench-root", type=Path, required=True, help="Edit3D-Bench data folder")
     parser.add_argument("--adapters", type=Path, required=True, help="folder of adapters with manifest.json")

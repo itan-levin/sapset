@@ -102,7 +102,7 @@ def run(jobs: list, work_dir: Path) -> list:
             tjob["source"], rows, region)})
 
     if render_jobs:
-        third_party.run_module("sap3d.render", render_jobs, Path(work_dir) / "render_jobs.json")
+        third_party.run_module("sapset.render", render_jobs, Path(work_dir) / "render_jobs.json")
 
     scorers = {}
     for plan, record in zip(plans, records):

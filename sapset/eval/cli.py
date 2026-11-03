@@ -1,6 +1,6 @@
-"""sap3d-eval: evaluate a textured edit.
+"""sapset-eval: evaluate a textured edit.
 
-    sap3d-eval --texture-dir TEXTURE_OUT --out OUT [--bench-root DATA --case GSO/SORTING_BUS/prompt_2]
+    sapset-eval --texture-dir TEXTURE_OUT --out OUT [--bench-root DATA --case GSO/SORTING_BUS/prompt_2]
 
 Reads every input from TEXTURE_OUT/texture.json. Writes OUT/eval.json with preservation (exact distance to
 the source, outside the region for composite-mode textures, over the whole surface for generated ones),
@@ -17,11 +17,11 @@ from .. import bench
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(prog="sap3d-eval", description=__doc__,
+    parser = argparse.ArgumentParser(prog="sapset-eval", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--texture-dir", type=Path, help="output folder of sap3d-texture")
+    parser.add_argument("--texture-dir", type=Path, help="output folder of sapset-texture")
     parser.add_argument("--out", type=Path, help="output folder")
-    parser.add_argument("--jobs", type=Path, help="run the eval jobs listed in this JSON file (as sap3d-bench "
+    parser.add_argument("--jobs", type=Path, help="run the eval jobs listed in this JSON file (as sapset-bench "
                                                   "writes them) instead of one job from the flags")
     parser.add_argument("--bench-root", type=Path, help="Edit3D-Bench data folder, for the benchmark metrics")
     parser.add_argument("--case", help="<dataset>/<object>/<prompt_key>")

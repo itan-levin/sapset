@@ -9,7 +9,7 @@ import numpy as np
 import trimesh
 from PIL import Image
 
-from sap3d.texture import atlas, color_fit, composite, reference, texels
+from sapset.texture import atlas, color_fit, composite, reference, texels
 
 
 def _sha(array) -> str:
@@ -230,8 +230,8 @@ def _textured(mesh: trimesh.Trimesh, seed: int) -> trimesh.Trimesh:
 def test_texture_steps_run_apart_as_texture_job_runs_them():
     import dataclasses
 
-    from sap3d.config import load_texture_config
-    from sap3d.texture import paint, texture
+    from sapset.config import load_texture_config
+    from sapset.texture import paint, texture
 
     def fake_paint(pipeline, mesh_glb_bytes, reference_png, work_dir):
         work_dir = pathlib.Path(work_dir)
@@ -275,7 +275,7 @@ def test_painted_obj_converts_to_glb_from_a_worker_thread():
     import sys
     import threading
 
-    from sap3d import third_party
+    from sapset import third_party
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = pathlib.Path(tmp)
@@ -284,7 +284,7 @@ def test_painted_obj_converts_to_glb_from_a_worker_thread():
 
         def convert():
             outcome["code"] = subprocess.run(
-                [sys.executable, "-m", "sap3d.texture.paint", str(tmp / "painted.obj"), str(tmp / "painted.glb")],
+                [sys.executable, "-m", "sapset.texture.paint", str(tmp / "painted.obj"), str(tmp / "painted.glb")],
                 env=third_party.child_env(), capture_output=True).returncode
 
         worker = threading.Thread(target=convert)

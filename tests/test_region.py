@@ -6,8 +6,8 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from sap3d import frames
-from sap3d.region import global_region, load_region, place_components, points_inside, sample_volume_points
+from sapset import frames
+from sapset.region import global_region, load_region, place_components, points_inside, sample_volume_points
 
 YAML = """primitives:
   - {type: box, center: [0.1, 0.0, 0.0], extents: [0.2, 0.4, 0.6]}

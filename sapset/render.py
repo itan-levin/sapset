@@ -10,7 +10,7 @@ range with its environment map, lens, film and color settings. This module runs 
 
 The scorer's file resolves its environment map relative to its own directory, so a process that renders
 changes into that directory and stays there; every path handed in must be absolute. Rendering runs in its
-own process (`python -m sap3d.render JOBS.json`, or the color fit's child process).
+own process (`python -m sapset.render JOBS.json`, or the color fit's child process).
 
 A job file is a JSON list of `{"glb": ..., "out_dir": ..., "camera": CAMERA}`, where CAMERA is
 `"all"` (sixteen views), `{"view": k}` (one benchmark view) or `{"transform_matrix": 4x4 Blender
@@ -156,7 +156,7 @@ def run_jobs(jobs: list) -> None:
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if len(argv) != 1:
-        raise SystemExit("usage: python -m sap3d.render JOBS.json")
+        raise SystemExit("usage: python -m sapset.render JOBS.json")
     run_jobs(json.loads(Path(argv[0]).read_text(encoding="utf-8")))
 
 

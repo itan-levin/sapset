@@ -9,14 +9,14 @@ import tempfile
 import numpy as np
 from PIL import Image
 
-from sap3d import camera as cameras
-from sap3d import config, render
-from sap3d.eval import bench as batch
-from sap3d.eval import fidelity, scorer
-from sap3d.texture import cli as texture_cli
+from sapset import camera as cameras
+from sapset import config, render
+from sapset.eval import bench as batch
+from sapset.eval import fidelity, scorer
+from sapset.texture import cli as texture_cli
 
 CONFIGS = pathlib.Path(__file__).resolve().parent.parent / "configs"
-MISSING = "/nonexistent/sap3d"
+MISSING = "/nonexistent/sapset"
 
 
 def _exits(function, argv) -> bool:

@@ -1,7 +1,7 @@
 """Preservation: exact point-to-surface distance from the edited meshes to the source.
 
 Local edits compare outside the region: both surfaces are sampled (200,000 points, fixed seed), samples
-inside the region are dropped, and the two directional mean distances are averaged (`sap3d.distance`).
+inside the region are dropped, and the two directional mean distances are averaged (`sapset.distance`).
 Global edits compare the whole surface. Distances are in the source mesh's units.
 """
 

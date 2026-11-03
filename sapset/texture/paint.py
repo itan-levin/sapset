@@ -82,7 +82,7 @@ def paint(pipeline, mesh_glb_bytes: bytes, reference_png: Path, work_dir: Path) 
     pipeline(mesh_path=str(staged), image_path=str(reference_png), output_mesh_path=str(painted_obj),
              use_remesh=USE_REMESH, save_glb=False)
     painted = work_dir / "textured_mesh.glb"
-    subprocess.run([sys.executable, "-m", "sap3d.texture.paint", str(painted_obj.resolve()), str(painted.resolve())],
+    subprocess.run([sys.executable, "-m", "sapset.texture.paint", str(painted_obj.resolve()), str(painted.resolve())],
                    env=third_party.child_env(), check=True)
     return painted
 

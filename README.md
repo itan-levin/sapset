@@ -1,8 +1,8 @@
-# SAP3D
+# SAPset
 
-[Project page](https://itan-levin.github.io/sap3d-page/)
+[Project page](https://itan-levin.github.io/sapset-page/)
 
-SAP3D edits an existing 3D asset from an edited 2D view of it, on top of Tencent's
+SAPset edits an existing 3D asset from an edited 2D view of it, on top of Tencent's
 [Hunyuan3D-2.1](https://github.com/Tencent-Hunyuan/Hunyuan3D-2.1) shape model. A low-rank adapter is first
 fitted to the asset, so that the generator reproduces it; during editing the adapter is applied at a different
 strength per latent token, off for the tokens of the edit region and on for all others, so the region follows
@@ -14,12 +14,12 @@ The code is organized as independent stages:
 
 | stage | command | input | output |
 |---|---|---|---|
-| personalize | `sap3d-personalize` | an asset | its adapter |
-| edit | `sap3d-edit` | asset, adapter, edited view, 3D region | edited mesh |
-| texture (optional) | `sap3d-texture` | edited mesh, asset, edited view | textured mesh |
-| eval (optional) | `sap3d-eval` | textured mesh | preservation, edit fidelity, Edit3D-Bench metrics |
+| personalize | `sapset-personalize` | an asset | its adapter |
+| edit | `sapset-edit` | asset, adapter, edited view, 3D region | edited mesh |
+| texture (optional) | `sapset-texture` | edited mesh, asset, edited view | textured mesh |
+| eval (optional) | `sapset-eval` | textured mesh | preservation, edit fidelity, Edit3D-Bench metrics |
 
-`sap3d-bench` runs edit, texture and eval over a list of Edit3D-Bench cases. Adapters for the 100 Edit3D-Bench
+`sapset-bench` runs edit, texture and eval over a list of Edit3D-Bench cases. Adapters for the 100 Edit3D-Bench
 objects can be downloaded, so the personalize stage is needed only for new assets.
 
 ## Install
@@ -28,10 +28,10 @@ Linux, an NVIDIA GPU, conda and a system C++ compiler (gcc and g++). The conda e
 pins Python 3.10, PyTorch 2.8.0 and the CUDA 12.8 compiler.
 
 ```bash
-git clone https://github.com/itan-levin/sap3d.git && cd sap3d
+git clone https://github.com/itan-levin/sapset.git && cd sapset
 
 conda env create -f environment.yml
-conda activate sap3d
+conda activate sapset
 
 export CUDA_HOME=$CONDA_PREFIX CPATH=$CONDA_PREFIX/targets/x86_64-linux/include \
        LIBRARY_PATH=$CONDA_PREFIX/targets/x86_64-linux/lib:$CONDA_PREFIX/lib
@@ -72,9 +72,9 @@ python scripts/download_global_cases.py --edit3d-bench Edit3D-Bench/data --out g
 ## Personalize
 
 ```bash
-sap3d-personalize prepare --source asset.glb --out assets/my_asset     # not needed for an Edit3D-Bench object
-sap3d-personalize dataset --asset assets/my_asset --out data/my_asset
-sap3d-personalize train   --data data/my_asset --out runs/my_asset     # the adapter is runs/my_asset/adapter
+sapset-personalize prepare --source asset.glb --out assets/my_asset     # not needed for an Edit3D-Bench object
+sapset-personalize dataset --asset assets/my_asset --out data/my_asset
+sapset-personalize train   --data data/my_asset --out runs/my_asset     # the adapter is runs/my_asset/adapter
 ```
 
 - `prepare` puts a glTF/GLB asset with static meshes into Edit3D-Bench's layout: `source_model/model.glb`,
@@ -84,7 +84,7 @@ sap3d-personalize train   --data data/my_asset --out runs/my_asset     # the ada
 - `dataset` renders the training views and samples the asset's surface. `--seed` makes the run repeatable.
 - `train` fits the adapter, saves it every 500 steps under `steps/`, scores each saved step on a generated
   mesh, and copies the best one to `adapter/`. `training.json` records the losses and scores.
-  `sap3d-personalize select --run runs/my_asset` chooses again, for instance after an interrupted run.
+  `sapset-personalize select --run runs/my_asset` chooses again, for instance after an interrupted run.
 - `configs/personalize.yaml` lists every setting; `dataset` and `train` take `--config` to override it and
   `--dump-config` to print the resolved settings.
 
@@ -93,19 +93,19 @@ sap3d-personalize train   --data data/my_asset --out runs/my_asset     # the ada
 A benchmark case:
 
 ```bash
-sap3d-edit --bench-root Edit3D-Bench/data --case GSO/SORTING_BUS/prompt_2 \
+sapset-edit --bench-root Edit3D-Bench/data --case GSO/SORTING_BUS/prompt_2 \
            --adapters adapters --out outputs/sorting_bus_p2
 ```
 
 Any asset with its own adapter:
 
 ```bash
-sap3d-edit --source model.glb --edited-view edited.png --region region.yaml \
+sapset-edit --source model.glb --edited-view edited.png --region region.yaml \
            --orbit 15 -90 --adapter runs/my_asset/adapter --out outputs/my_edit
 ```
 
 - The region is a GLB holding one closed mesh object per part, or a YAML/JSON list of boxes, spheres
-  and cylinders in the source mesh's coordinates (`sap3d.region.load_region` documents the format).
+  and cylinders in the source mesh's coordinates (`sapset.region.load_region` documents the format).
   Parts should be convex and must not overlap.
 - The edited view is a PNG, square when the mask is projected. Without transparency its background must be
   near-white.
@@ -124,12 +124,12 @@ sap3d-edit --source model.glb --edited-view edited.png --region region.yaml \
 
 The output is `edit.glb` in the source mesh's frame, `edit.json` (settings and per-step region sizes),
 `regions.npz` (the region's latent tokens at each step) and, when the mask was projected, `mask_2d.png`.
-`configs/edit.yaml` lists every setting; `sap3d-edit --dump-config` prints the resolved settings.
+`configs/edit.yaml` lists every setting; `sapset-edit --dump-config` prints the resolved settings.
 
 ## Texture
 
 ```bash
-sap3d-texture --bench-root Edit3D-Bench/data --case GSO/SORTING_BUS/prompt_2 \
+sapset-texture --bench-root Edit3D-Bench/data --case GSO/SORTING_BUS/prompt_2 \
               --mesh outputs/sorting_bus_p2/edit.glb --out outputs/sorting_bus_p2/texture
 ```
 
@@ -147,7 +147,7 @@ and optionally `--mask`.
 ## Eval
 
 ```bash
-sap3d-eval --texture-dir outputs/sorting_bus_p2/texture --out outputs/sorting_bus_p2/eval \
+sapset-eval --texture-dir outputs/sorting_bus_p2/texture --out outputs/sorting_bus_p2/eval \
            --bench-root Edit3D-Bench/data --case GSO/SORTING_BUS/prompt_2
 ```
 
@@ -161,7 +161,7 @@ sap3d-eval --texture-dir outputs/sorting_bus_p2/texture --out outputs/sorting_bu
 ## Benchmark runs
 
 ```bash
-sap3d-bench --bench-root Edit3D-Bench/data --adapters adapters --out runs/bench --cases cases.txt
+sapset-bench --bench-root Edit3D-Bench/data --adapters adapters --out runs/bench --cases cases.txt
 ```
 
 `cases.txt` holds one case id per line. The runner edits, textures and evaluates every case, writing
@@ -174,14 +174,14 @@ refuses stages made with other settings; `--overwrite` redoes them. `--global` r
 Use an A100-class GPU, the downloaded adapters and the shipped configurations:
 
 ```bash
-python -c "from sap3d import bench; print('\n'.join(c.case_id for c in bench.iter_cases('Edit3D-Bench/data')))" \
+python -c "from sapset import bench; print('\n'.join(c.case_id for c in bench.iter_cases('Edit3D-Bench/data')))" \
     > cases_300.txt
-sap3d-bench --bench-root Edit3D-Bench/data --adapters adapters --out runs/local --cases cases_300.txt
+sapset-bench --bench-root Edit3D-Bench/data --adapters adapters --out runs/local --cases cases_300.txt
 
 grep -v 73fc1424 global_edits/cases.txt > global_local.txt     # 10 global cases, default configuration
 grep 73fc1424 global_edits/cases.txt > global_uniform.txt      # the 2 wire-mesh pumpkins, uniform strength
-sap3d-bench --bench-root global_edits --adapters adapters --out runs/global --cases global_local.txt --global
-sap3d-bench --bench-root global_edits --adapters adapters --out runs/global_uniform --cases global_uniform.txt \
+sapset-bench --bench-root global_edits --adapters adapters --out runs/global --cases global_local.txt --global
+sapset-bench --bench-root global_edits --adapters adapters --out runs/global_uniform --cases global_uniform.txt \
             --global --config configs/edit_global_uniform.yaml
 ```
 
@@ -208,8 +208,8 @@ CPU only; run from the repository root.
 ## Citation
 
 ```bibtex
-@article{levin2026sap3d,
-  title   = {SAP3D: Spatially Adaptive Personalization for Consistent 3D Generative Editing},
+@article{levin2026sapset,
+  title   = {SAPset: Spatially Adaptive Personalization for Consistent 3D Generative Editing},
   author  = {Levin, Itan and Tevet, Guy and Bermano, Amit H.},
   journal = {arXiv preprint arXiv:XXXX.XXXXX},
   year    = {2026}

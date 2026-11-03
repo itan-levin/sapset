@@ -3,7 +3,7 @@
 import numpy as np
 from PIL import Image
 
-from sap3d.edit.patches import DINO_GRID_SIZE, mask_patch_tokens
+from sapset.edit.patches import DINO_GRID_SIZE, mask_patch_tokens
 
 
 def _case():

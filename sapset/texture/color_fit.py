@@ -13,8 +13,8 @@ published, the uncorrected atlas competing as round 0; when round 0 wins, the co
 of the composite's bytes. Fewer than MIN_FIT_PIXELS usable pixels publish the composite uncorrected.
 
 Runs in its own process, since rendering changes the working directory:
-`python -m sap3d.texture.color_fit JOBS.json`, each job naming `atlas_dir`, `composite_glb`,
-`edited_view`, `mask`, `camera` (a `sap3d.render` camera spec), `out_dir` and `fitted_glb`.
+`python -m sapset.texture.color_fit JOBS.json`, each job naming `atlas_dir`, `composite_glb`,
+`edited_view`, `mask`, `camera` (a `sapset.render` camera spec), `out_dir` and `fitted_glb`.
 """
 
 import json
@@ -266,7 +266,7 @@ def fit_job(job: dict, render=renders.render) -> dict:
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if len(argv) != 1:
-        raise SystemExit("usage: python -m sap3d.texture.color_fit JOBS.json")
+        raise SystemExit("usage: python -m sapset.texture.color_fit JOBS.json")
     for job in json.loads(Path(argv[0]).read_text(encoding="utf-8")):
         record = fit_job(job)
         print(f"color fit {job['out_dir']}: published round {record['published_iteration']} of "

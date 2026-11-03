@@ -52,7 +52,7 @@ def prepare(source, out_dir) -> Path:
     normalization = scene.normalize_glb(source, glb)
     (render_dir / "meta.json").write_text(json.dumps(meta(), indent=1), encoding="utf-8")
     with tempfile.TemporaryDirectory() as scratch:
-        third_party.run_module("sap3d.render", [{"glb": str(glb), "out_dir": str(render_dir), "camera": "all"}],
+        third_party.run_module("sapset.render", [{"glb": str(glb), "out_dir": str(render_dir), "camera": "all"}],
                                Path(scratch) / "render_jobs.json")
     (out_dir / "prepare.json").write_text(json.dumps({"source": str(Path(source).resolve()),
                                                       "normalization": normalization}, indent=1),

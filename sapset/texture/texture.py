@@ -7,7 +7,7 @@ inside the region (see `composite`). The color fit then runs in a child process.
 `generated` (global edits): the painted atlas alone.
 
 A job is a dict: `mode`, `mesh` (edited mesh, source frame), `source` (textured source GLB), `edited_view`,
-`region` (region file; composite only), `view` (`{"mask": PNG, "camera": sap3d.render camera spec}` of the
+`region` (region file; composite only), `view` (`{"mask": PNG, "camera": sapset.render camera spec}` of the
 edited view, or None), `color_fit` (bool; needs `view`) and `out_dir`. Outputs in `out_dir`: `composite.glb`
 or `generated.glb`, `texture.json`, `reference.png`, `atlases/`, `paint/`, and with a color fit
 `composite_color_fit.glb` and `color_fit/`.
@@ -198,4 +198,4 @@ def run(jobs: list, cfg, work_dir: Path, model: str = "tencent/Hunyuan3D-2.1") -
               f"({record['seconds']} s)", flush=True)
     fits = color_fit_jobs(jobs)
     if fits:
-        third_party.run_module("sap3d.texture.color_fit", fits, Path(work_dir) / "color_fit_jobs.json")
+        third_party.run_module("sapset.texture.color_fit", fits, Path(work_dir) / "color_fit_jobs.json")

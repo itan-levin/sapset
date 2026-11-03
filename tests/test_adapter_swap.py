@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 from safetensors.torch import load_file, save_file
 
-from sap3d.edit.model import attach_adapter, load_adapter_weights
+from sapset.edit.model import attach_adapter, load_adapter_weights
 
 TARGETS = ["fc1", "fc2", "net.0.proj", "net.2"]
 

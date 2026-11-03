@@ -1,5 +1,5 @@
-"""Assemble the 12 whole-object (global) edit cases as a benchmark folder that `sap3d-edit`, `sap3d-texture`,
-`sap3d-eval` and `sap3d-bench --global` read with `--bench-root`.
+"""Assemble the 12 whole-object (global) edit cases as a benchmark folder that `sapset-edit`, `sapset-texture`,
+`sapset-eval` and `sapset-bench --global` read with `--bench-root`.
 
     python scripts/download_global_cases.py --edit3d-bench Edit3D-Bench/data --out global_edits
 
@@ -12,7 +12,7 @@ import json
 import sys
 from pathlib import Path
 
-REPO_ID = "Itan-levin/sap3d-global-edits"
+REPO_ID = "Itan-levin/sapset-global-edits"
 CASE_FILES = ("2d_edit.png", "2d_mask.png", "3d_edit_region.glb", "annotation_view.json")
 
 

@@ -8,8 +8,8 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-from sap3d import camera as cameras
-from sap3d.region import from_primitives, project_mask
+from sapset import camera as cameras
+from sapset.region import from_primitives, project_mask
 
 # Two cameras exactly as an Edit3D-Bench meta.json records them (elevation and azimuth in radians).
 BENCH_CAMERAS = [
@@ -92,7 +92,7 @@ def test_meta_rejections():
 
 
 def test_global_region_projects_around_the_whole_source():
-    from sap3d.region import global_region
+    from sapset.region import global_region
     camera = cameras.orbit(30.0, 45.0, 80)
     source = trimesh.creation.box(extents=[0.6, 1.0, 0.4])
     mask = project_mask(global_region(source), source, camera)

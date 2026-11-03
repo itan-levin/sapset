@@ -1,10 +1,10 @@
-"""sap3d-edit: edit one asset with its personalized adapter.
+"""sapset-edit: edit one asset with its personalized adapter.
 
 Benchmark case (inputs read from the case folder):
-    sap3d-edit --bench-root DATA --case GSO/SORTING_BUS/prompt_2 --adapters ADAPTERS --out OUT
+    sapset-edit --bench-root DATA --case GSO/SORTING_BUS/prompt_2 --adapters ADAPTERS --out OUT
 
 Any asset:
-    sap3d-edit --source model.glb --edited-view edit.png --region region.yaml --mask mask.png \\
+    sapset-edit --source model.glb --edited-view edit.png --region region.yaml --mask mask.png \\
                --adapter ADAPTER_DIR --out OUT
   The 2D mask may instead be projected from the region through the edited view's camera: --camera-meta
   meta.json --view K, --camera camera.json, or --orbit ELEVATION AZIMUTH. --global replaces --region by a
@@ -30,7 +30,7 @@ ASSET_FLAGS = ("source", "edited_view", "region", "whole", "mask", "camera_meta"
 
 
 def _parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(prog="sap3d-edit", description=__doc__,
+    parser = argparse.ArgumentParser(prog="sapset-edit", description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--config", type=Path, help="YAML overriding the default settings")
     parser.add_argument("--dump-config", action="store_true", help="print the resolved settings and exit")

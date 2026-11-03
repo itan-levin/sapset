@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from sap3d import bench
+from sapset import bench
 
 
 def _case_tree(folder: Path) -> bench.BenchCase:

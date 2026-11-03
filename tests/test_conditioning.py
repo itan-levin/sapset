@@ -6,8 +6,8 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from sap3d.config import ConditioningConfig
-from sap3d.conditioning import conditioning_image
+from sapset.config import ConditioningConfig
+from sapset.conditioning import conditioning_image
 
 CFG = ConditioningConfig()
 
